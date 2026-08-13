@@ -1,9 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My GitHub Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Austin Liu</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Noto Serif CJK", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif KR", "Batang", Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      background: #fff;
+      color: #222;
+      transition: all 0.2s ease;
+    }
+
+    body.horizontal {
+      writing-mode: horizontal-tb;
+    }
+
+    body.vertical {
+      writing-mode: vertical-lr;
+      text-orientation: upright;
+      line-height: 1.9;
+    }
+
+    .name {
+      font-size: 1.15rem;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.02em;
+      opacity: 0.85;
+    }
+
+    .controls {
+      margin-bottom: 2.5rem;
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    button {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      border: 1px solid #aaa;
+      background: #f8f8f8;
+      border-radius: 4px;
+    }
+
+    button.active {
+      background: #222;
+      color: white;
+      border-color: #222;
+    }
+
+    h1 {
+      font-weight: normal;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+    }
+
+    body.vertical .name,
+    body.vertical h1,
+    body.vertical p {
+      margin: 0 1.3em 0 0;
+    }
+
+    .content {
+      display: none;
+    }
+
+    .content.active {
+      display: block;
+    }
+  </style>
 </head>
-<body>
-    <h1>Hi, I am Austin. Welcome to my website.</h1>
+<body class="horizontal">
+
+  <!-- Names -->
+  <div class="name" id="name-en">Austin Liu</div>
+  <div class="name" id="name-ja" style="display:none;">劉伯翼</div>
+  <div class="name" id="name-ko" style="display:none;"> 류벡익</div>
+  <div class="name" id="name-la" style="display:none;">Augustinus Liu</div>
+  <div class="name" id="name-hm" style="display:none;">劉伯翼</div>
+
+  <div class="controls">
+    <div>
+      <strong>Language:</strong>
+      <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+      <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+      <button id="btn-ko" onclick="setLang('ko')">한국어</button>
+      <button id="btn-la" onclick="setLang('la')">Latina</button>
+      <button id="btn-hm" onclick="setLang('hm')">漢文/한문</button>
+    </div>
+    <div style="margin-top: 0.6rem;">
+      <strong>Direction:</strong>
+      <button id="btn-horizontal" class="active" onclick="setDirection('horizontal')">Rows (→)</button>
+      <button id="btn-vertical" onclick="setDirection('vertical')">Columns (↓)</button>
+    </div>
+  </div>
+
+  <!-- English -->
+  <div id="content-en" class="content active">
+    <h1>Hello</h1>
+    <p>This is a simple personal page.</p>
+    <p>You can switch languages and also change the text direction between horizontal rows and vertical columns.</p>
+  </div>
+
+  <!-- Japanese -->
+  <div id="content-ja" class="content">
+    <h1>こんにちは</h1>
+    <p>これはシンプルな個人ページです。</p>
+    <p>言語を切り替えたり、文字の方向を横書きと縦書き（左から右へ）で変えることができます。</p>
+  </div>
+
+  <!-- Korean -->
+  <div id="content-ko" class="content">
+    <h1>안녕하십니까.</h1>
+    <p>이것은 간단한 개인 페이지입니다.</p>
+    <p>언어를 전환하거나 글자 방향을 가로쓰기와 세로쓰기(왼쪽에서 오른쪽으로)로 바꿀 수 있습니다.</p>
+  </div>
+
+  <!-- Latin -->
+  <div id="content-la" class="content">
+    <h1>Salve</h1>
+    <p>Haec est pagina personalis simplex.</p>
+    <p>Linguas mutare potes, et etiam directionem textus inter versus horizontales et columnas verticales.</p>
+  </div>
+
+  <!-- Literary Sinitic -->
+  <div id="content-hm" class="content">
+    <h1>您好</h1>
+    <p>此乃簡易個人之頁。</p>
+    <p>可易語言，亦可改文字方向，或橫或縱（自左而右）。</p>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      // Update name
+      ['en', 'ja', 'ko', 'la', 'hm'].forEach(l => {
+        document.getElementById('name-' + l).style.display = (l === lang) ? 'block' : 'none';
+      });
+
+      // Update content
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+      document.getElementById('content-' + lang).classList.add('active');
+
+      // Update language buttons
+      ['en', 'ja', 'ko', 'la', 'hm'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+      });
+    }
+
+    function setDirection(dir) {
+      document.body.className = dir;
+      document.getElementById('btn-horizontal').classList.toggle('active', dir === 'horizontal');
+      document.getElementById('btn-vertical').classList.toggle('active', dir === 'vertical');
+    }
+  </script>
+
 </body>
 </html>
